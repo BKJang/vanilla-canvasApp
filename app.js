@@ -1,6 +1,8 @@
 const canvas = document.getElementById('jsCanvas');
 const ctx = canvas.getContext('2d');
 const colors = document.getElementsByClassName('jsColor');
+const range = document.getElementById('jsRange');
+const mode = document.getElementById('jsMode');
 
 //css 사이즈가 아닌 canvas 자체적으로 width와 height를 줘야 동작한다.(pixel modifier)
 canvas.width = 470;
@@ -11,6 +13,7 @@ ctx.strokeStyle = '#2c2c2c';
 ctx.lineWidth = 2.5;
 
 let painting = false;
+let filling = false;
 
 // 캔버스에서 마우스가 벗어났을 때 이벤트
 // 캔버스에서 마우스를 클릭했다가 뗐을 때 이벤트
@@ -44,6 +47,21 @@ function handleChangeColor(event) {
     ctx.strokeStyle = color;
 }
 
+function handleRangeChange(event) {
+    const size = event.target.value;
+    ctx.lineWidth = size;
+}
+
+function handleModeClick() {
+    if(filling) {
+        filling = false;
+        mode.innerText = 'Fill';
+    } else {
+        filling = true;
+        mode.innerText = 'Paint';
+    }
+}
+
 function init() {
     // 마우스가 캔버스 내부에서 인지할 수 있도록 이벤트 리스너 추가
     if (canvas) {
@@ -55,7 +73,15 @@ function init() {
 
     [...colors].map((color) => {
         color.addEventListener('click', handleChangeColor);
-    })
+    });
+
+    if (range) {
+        range.addEventListener('input', handleRangeChange);
+    }
+
+    if (mode) {
+        mode.addEventListener('click', handleModeClick);
+    }
 }
 
 init();
