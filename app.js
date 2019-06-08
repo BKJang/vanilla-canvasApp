@@ -46,17 +46,20 @@ function onMouseMove(event) {
     }
 }
 
+// 색 변경
 function handleChangeColor(event) {
     const color = event.target.style.backgroundColor;
     ctx.strokeStyle = color;
     ctx.fillStyle = color;
 }
 
+// 붓 사이즈 변경
 function handleRangeChange(event) {
     const size = event.target.value;
     ctx.lineWidth = size;
 }
 
+// Fill, Paint 모드 변경
 function handleModeClick() {
     if(filling) {
         filling = false;
@@ -67,9 +70,10 @@ function handleModeClick() {
     }
 }
 
+// Fill 모드 상태일 때 색채우기 기능
 function handleCanvasClick() {
     if(!filling) return;
-    
+
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
@@ -83,14 +87,17 @@ function init() {
         canvas.addEventListener('click', handleCanvasClick);
     }
 
+    // 각각의 색을 클릭했을 때 이벤트 리스너 추가
     [...colors].map((color) => {
         color.addEventListener('click', handleChangeColor);
     });
 
+    // range 슬라이더 변경 시 이벤트 리스너 추가
     if (range) {
         range.addEventListener('input', handleRangeChange);
     }
 
+    // Fill, Paint 모드 변경 시 이벤트 리스너 추가
     if (mode) {
         mode.addEventListener('click', handleModeClick);
     }
