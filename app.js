@@ -4,12 +4,16 @@ const colors = document.getElementsByClassName('jsColor');
 const range = document.getElementById('jsRange');
 const mode = document.getElementById('jsMode');
 
+const INITIAL_COLOR = '#2c2c2c';
+const INITIAL_CANVAS_SIZE = 470;
+
 //css 사이즈가 아닌 canvas 자체적으로 width와 height를 줘야 동작한다.(pixel modifier)
-canvas.width = 470;
-canvas.height = 470;
+canvas.width = INITIAL_CANVAS_SIZE;
+canvas.height = INITIAL_CANVAS_SIZE;
 
 
-ctx.strokeStyle = '#2c2c2c';
+ctx.strokeStyle = INITIAL_COLOR;
+ctx.fillStyle = INITIAL_COLOR;
 ctx.lineWidth = 2.5;
 
 let painting = false;
@@ -45,6 +49,7 @@ function onMouseMove(event) {
 function handleChangeColor(event) {
     const color = event.target.style.backgroundColor;
     ctx.strokeStyle = color;
+    ctx.fillStyle = color;
 }
 
 function handleRangeChange(event) {
@@ -62,6 +67,12 @@ function handleModeClick() {
     }
 }
 
+function handleCanvasClick() {
+    if(!filling) return;
+    
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
 function init() {
     // 마우스가 캔버스 내부에서 인지할 수 있도록 이벤트 리스너 추가
     if (canvas) {
@@ -69,6 +80,7 @@ function init() {
         canvas.addEventListener('mousedown', startPainting);
         canvas.addEventListener('mouseup', stopPainting);
         canvas.addEventListener('mouseleave', stopPainting);
+        canvas.addEventListener('click', handleCanvasClick);
     }
 
     [...colors].map((color) => {
