@@ -8,9 +8,12 @@
 
 ## :pencil2: TODO
 
+#### ☑️ Done / 🗳 TODO
+
 - :ballot_box_with_check: canvas api 적용
 - :ballot_box_with_check: 이미지 파일 다운로드 적용
 - :ballot_box_with_check: 붓 크기 변경 range slider 구현
+- :ballot_box_with_check: 색 채우기 기능 구
 
 <br/>
 
